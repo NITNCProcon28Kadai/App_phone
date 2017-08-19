@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:weightSum="1">
+
+    <ImageButton
+        android:id="@+id/intervalBtn"
+        android:layout_width="293dp"
+        android:layout_height="292dp"
+        android:background="@null"
+        android:onClick="interval_onClick"
+        android:scaleType="fitCenter"
+        android:src="@drawable/exercize_interval"
+        android:layout_gravity="center"/>
+
+    <ImageButton
+        android:id="@+id/paceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="215dp"
+        android:background="@null"
+        android:onClick="pace_onClick"
+        android:scaleType="fitCenter"
+        android:src="@drawable/exercize_pace"
+        android:layout_gravity="center"
+        android:layout_weight="0.26" />
+
+</LinearLayout>

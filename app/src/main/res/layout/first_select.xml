@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:weightSum="1">
+
+    <ImageButton
+        android:id="@+id/runBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="418dp"
+        android:background="@null"
+        android:onClick="runMenu_onClick"
+        android:scaleType="fitStart"
+        android:src="@drawable/menu_run" />
+
+    <LinearLayout
+        android:layout_width="355dp"
+        android:layout_height="158dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/courceEditBtn"
+            android:layout_width="182dp"
+            android:layout_height="134dp"
+            android:background="@null"
+            android:scaleType="fitEnd"
+            android:src="@drawable/menu_course_edit"
+            android:onClick="editMenu_onClick"/>
+
+        <ImageButton
+            android:id="@+id/lookRecordBtn"
+            android:layout_width="176dp"
+            android:layout_height="136dp"
+            android:background="@null"
+            android:scaleType="fitEnd"
+            android:src="@drawable/menu_look_record"
+            android:onClick="recordMenu_onClick"/>
+    </LinearLayout>
+</LinearLayout>
