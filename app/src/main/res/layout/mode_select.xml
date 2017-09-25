@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="306dp"
+        android:id="@+id/vsGhost"
+        android:background="@null"
+        android:onClick="vsGhost_onClick"
+        android:src="@drawable/mode_vs"
+        android:scaleType="fitStart"/>
+
+    <ImageButton
+        android:id="@+id/paceMaker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:onClick="paceMaker_onClick"
+        android:scaleType="fitEnd"
+        android:src="@drawable/pace_keeper" />
+
+</LinearLayout>

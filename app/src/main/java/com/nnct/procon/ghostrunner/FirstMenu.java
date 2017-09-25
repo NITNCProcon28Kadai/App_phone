@@ -17,7 +17,7 @@ public class FirstMenu extends Activity{
     }
 
     void runMenu_onClick(View v){
-        Intent runIntent = new Intent(this,com.nnct.procon.ghostrunner.RunMenu.class);
+        Intent runIntent = new Intent(this,com.nnct.procon.ghostrunner.ModeSelect.class);
         startActivity(runIntent);
     }
 /*

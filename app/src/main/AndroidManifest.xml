@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nnct.procon.ghostrunner">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <!--Bluetoothによる通信を許可する-->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <!--Bluetoothの設定変更を許可する-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +27,38 @@
         <activity android:name=".FirstMenu">
 
         </activity>
-        <activity android:name=".RunMenu">
+        <activity android:name=".ModeSelect">
 
         </activity>
-        <activity android:name=".IntervalCourseSelect">
+        <activity android:name=".SetCourse">
 
         </activity>
+        <activity android:name=".MethodSelect">
+
+        </activity>
+        <activity android:name=".SpeedSelect">
+
+        </activity>
+        <activity android:name=".SettingConfirm">
+
+        </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCMkE94nnVewWiTZRhdFjKRhbHWz0ZgVl4"/>
     </application>
+
+    <!-- 追加パーミッション１：Google Maps Android API のアクセス許可 -->
+    <permission
+        android:name="com.rakuraku.android.ekimap.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.rakuraku.android.ekimap.permission.MAPS_RECEIVE" />
+
+    <!-- 追加パーミッション２：現在位置取得のため -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
