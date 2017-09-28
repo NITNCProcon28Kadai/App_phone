@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <!--Bluetoothの設定変更を許可する-->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!--ストレージへのアクセス許可-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -40,6 +42,15 @@
 
         </activity>
         <activity android:name=".SettingConfirm">
+
+        </activity>
+        <activity android:name=".ShowRecord">
+
+        </activity>
+        <activity android:name=".VsStart">
+
+        </activity>
+        <activity android:name=".RunRecorder">
 
         </activity>
         <meta-data

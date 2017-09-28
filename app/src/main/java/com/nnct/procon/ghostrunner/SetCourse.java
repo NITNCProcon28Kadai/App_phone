@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,33 +36,36 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     String line,logLine;
     Setting set;
-    File dir = new File("/data/data/"+getPackageName()+"/files/");
-    final File[] fileList = dir.listFiles();
-    int fileCount = fileList.length;
-    ArrayList<String> courseList = new ArrayList<>();
+    File dir ;
+    int fileCount,listCount=0;
+    ArrayList<String> courseList;
     BufferedReader reader = null,logReader = null;
     double lat,lng;
     String[] str;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        /*dir = new File("/data/data/" + getPackageName() + "/files");
+        final File[] fileList = dir.listFiles();
+        fileCount = fileList.length;*/
+        courseList = new ArrayList<>();
         //ファイルの有無
         File file = new File("/data/data/"+getPackageName()+"/files/course1.dat");
         boolean isExists = file.exists();
         if (isExists == true) {
             setContentView(R.layout.map_select);
-            try{
+            /*try{
                 reader = new BufferedReader(
                         new InputStreamReader(openFileInput("course1.dat")));
                 set.count = 1;
                 while((line = reader.readLine()) != null){
                     courseList.add(line);
+                    listCount++;
                 }
                 TextView textView = (TextView)findViewById(R.id.textView);
                 textView.setText(courseList.get(0));
-                set.time = Long.parseLong(courseList.get(fileCount-2));
-                set.dist = Double.parseDouble(courseList.get(fileCount-1));
+                set.time = Long.parseLong(courseList.get(listCount - 2));
+                set.dist = Double.parseDouble(courseList.get(listCount - 1));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -92,7 +96,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
                 }catch (IOException e){
                     e.printStackTrace();
                 }
-            }
+            }*/
         }else{
             setContentView(R.layout.map_unselect);
         }
@@ -100,6 +104,55 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         Intent i = this.getIntent();
         set = (Setting)i.getSerializableExtra("Mode");
 
+    }
+
+    @Override
+    protected  void onStart(){
+        super.onStart();
+
+        try{
+            reader = new BufferedReader(
+                    new InputStreamReader(openFileInput("course1.dat")));
+            set.count = 1;
+            while((line = reader.readLine()) != null){
+                courseList.add(line);
+                listCount++;
+            }
+            TextView textView = (TextView)findViewById(R.id.textView);
+            textView.setText(courseList.get(0));
+            set.time = Long.parseLong(courseList.get(listCount - 2));
+            set.dist = Double.parseDouble(courseList.get(listCount - 1));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(reader != null){
+                    reader.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        try{
+            logReader = new BufferedReader(
+                    new InputStreamReader(openFileInput("log1.dat")));
+            logLine = logReader.readLine();
+            str = logLine.split(" ",0);
+            lat = Double.parseDouble(str[0]);
+            lng = Double.parseDouble(str[1]);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(logReader != null){
+                    logReader.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -121,7 +174,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
             imgBtn.setEnabled(true);
         }
         Intent intent;
-        if(set.mode == "vs"){
+        if(set.mode.equals("vs")){
             intent = new Intent(this,com.nnct.procon.ghostrunner.VsStart.class);
         }else {
             intent = new Intent(this, com.nnct.procon.ghostrunner.MethodSelect.class);
@@ -131,6 +184,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     }
 
     void courseMake_onClick(View view){
+        Log.d("Touch_confirm","タッチを検出しました.");
         final EditText editView = new EditText(SetCourse.this);
         AlertDialog.Builder dialog = new AlertDialog.Builder(SetCourse.this);
         dialog.setTitle("コース名を入力してください");
