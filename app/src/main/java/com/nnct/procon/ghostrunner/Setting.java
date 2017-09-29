@@ -11,6 +11,7 @@ public class Setting implements Serializable{
      String method;
      String pace;
      String courseFile;//拡張子なし
+     String courseName;
      int count;
      long time;//記録時間
      double dist;//コースの距離

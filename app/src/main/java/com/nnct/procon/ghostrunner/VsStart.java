@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.Set;
 
@@ -15,14 +16,16 @@ import java.util.Set;
  */
 
 public class VsStart extends Activity {
-    final private int REQUEST_ENABLE_BT = 1;
     Setting set;
+    TextView txtView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vs_start);
         Intent i = this.getIntent();
         set = (Setting)i.getSerializableExtra("Course");
+        txtView = (TextView)findViewById(R.id.textView2);
+        txtView.setText(set.courseName);
     }
 
 
