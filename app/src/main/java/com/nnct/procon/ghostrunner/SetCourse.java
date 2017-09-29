@@ -57,7 +57,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
             try{
                 reader = new BufferedReader(
                         new InputStreamReader(openFileInput("course1.dat")));
-                set.count = 1;
+              //  set.count = 1;
                 while((line = reader.readLine()) != null){
                     courseList.add(line);
                     listCount++;
