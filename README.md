@@ -34,7 +34,7 @@ This is Mobile side Application
   
 - SpeedSelect
 
-   - 走る速さを選択
+    - 走る速さを選択
   
 - SettingConfirm
 
@@ -52,7 +52,7 @@ This is Mobile side Application
   
 - ShowRecord
 
-   - 走った後、記録を表示させるクラス
+    - 走った後、記録を表示させるクラス
   
    - デバッグ未実施
   
