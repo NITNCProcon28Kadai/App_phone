@@ -2,4 +2,5 @@
     <string name="app_name">GhostRunner</string>
     <string name="course_name">TestCourse</string>
     <string name="course_make">コースを作成する</string>
+    <string name="total_distance">合計距離</string>
 </resources>

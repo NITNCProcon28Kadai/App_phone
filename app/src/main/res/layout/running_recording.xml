@@ -3,6 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
+    <fragment   xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/runningMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:context="com.nnct.procon.ghostrunner.RunRecorder"
+        android:layout_marginTop="81dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,19 +22,8 @@
         android:scaleType="fitEnd"
         android:background="@null"
         android:onClick="runFinish_onClick"
+        android:layout_marginBottom="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="440dp" />
-    <fragment   xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/runningMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context="com.nnct.procon.ghostrunner.RunRecorder"
-        android:layout_marginTop="137dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

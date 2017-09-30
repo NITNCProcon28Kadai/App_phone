@@ -20,12 +20,12 @@ public class FirstMenu extends Activity{
         Intent runIntent = new Intent(this,com.nnct.procon.ghostrunner.ModeSelect.class);
         startActivity(runIntent);
     }
-/*
+
     void editMenu_onClick(View v){
-        Intent editMenu = new Intent(this,com.nnct.procon.ghostrunner.EditMenu.class);
+        Intent editMenu = new Intent(this,com.nnct.procon.ghostrunner.EditCourse.class);
         startActivity(editMenu);
     }
-
+/*
     void lookRecord_onClick(View v){
         Intent lookRecord = new Intent(this,com.nnct.procon.ghostrunner.LookRecord.class);
         startActivity(lookRecord);

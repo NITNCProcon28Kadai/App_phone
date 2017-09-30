@@ -50,6 +50,7 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.running_recording);
         Intent intent = this.getIntent();
         set=(Setting)intent.getSerializableExtra("file");
 
@@ -57,7 +58,7 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.runningMap);
         mapFragment.getMapAsync(this);
 
         request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(1000).setFastestInterval(15);
@@ -89,7 +90,28 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
         }
         client.disconnect();
         BufferedWriter writer = null;
+        BufferedWriter allDist = null;
 
+        //今まで走った距離をまとめる
+        try{
+            allDist = new BufferedWriter(
+                    new OutputStreamWriter(
+                            openFileOutput("allDistance.dat",Context.MODE_APPEND)));
+            allDist.write(Double.toString(totalDist));
+            allDist.newLine();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(allDist != null){
+                    allDist.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //記録保存
         try{
             writer = new BufferedWriter(
                     new OutputStreamWriter(
@@ -110,6 +132,7 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
         }
+        //経路保存
         try{
             writer = new BufferedWriter(
                     new OutputStreamWriter(

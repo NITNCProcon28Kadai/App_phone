@@ -36,7 +36,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     String line,logLine;
     Setting set;
-    File dir ;
+    File dir;
     int fileCount,listCount=0;
     ArrayList<String> courseList;
     BufferedReader reader = null,logReader = null;
@@ -45,14 +45,14 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*dir = new File("/data/data/" + getPackageName() + "/files");
+        dir = new File("/data/data/" + getPackageName() + "/files");
         final File[] fileList = dir.listFiles();
-        fileCount = fileList.length;*/
+        fileCount = fileList.length;
         courseList = new ArrayList<>();
         //ファイルの有無
-        File file = new File("/data/data/"+getPackageName()+"/files/course1.dat");
-        boolean isExists = file.exists();
-        if (isExists == true) {
+       /* File file = new File("/data/data/"+getPackageName()+"/files/course1.dat");
+        boolean isExists = file.exists();*/
+        if (!fileList.equals(null)) {
             setContentView(R.layout.map_select);
             try{
                 reader = new BufferedReader(
