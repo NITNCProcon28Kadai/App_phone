@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/background">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/coursebackground"
+        android:id="@+id/deleteName"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/courseDelete"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="21dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/deleteText"
+        android:layout_marginBottom="19dp"
+        android:layout_alignBottom="@+id/deleteName"
+        android:layout_centerHorizontal="true" />
+    <fragment   xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:context="com.nnct.procon.ghostrunner.DeleteCourse"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/courseDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:onClick="CourseDelete_onClick"
+        android:scaleType="fitEnd"
+        android:src="@drawable/enter"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/map"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

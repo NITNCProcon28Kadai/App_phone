@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,10 +24,13 @@ import com.google.android.gms.vision.text.Text;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+
+import static com.nnct.procon.ghostrunner.R.id.textView2;
 
 /**
  * Created by kaito on 2017/08/23.
@@ -34,7 +39,7 @@ import java.util.ArrayList;
 
 public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-    String line,logLine;
+    String line,logLine,logCount;
     Setting set;
     File dir;
     int fileCount,listCount=0;
@@ -42,22 +47,48 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     BufferedReader reader = null,logReader = null;
     double lat,lng;
     String[] str;
+    int charCount;
+    // タッチイベントを処理するためのインタフェース
+    private GestureDetector mGestureDetector;
+    // X軸最低スワイプ距離
+    private static final int SWIPE_MIN_DISTANCE = 50;
+
+    // X軸最低スワイプスピード
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+    private String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dir = new File("/data/data/" + getPackageName() + "/files");
-        final File[] fileList = dir.listFiles();
-        fileCount = fileList.length;
+        dir = new File(path);
         courseList = new ArrayList<>();
+        set.count = 0;
+        //フィルタを作成する
+        FilenameFilter filter = new FilenameFilter() {
+
+            public boolean accept(File file, String str){
+
+                //指定文字列でフィルタする
+                //indexOfは指定した文字列が見つからなかったら-1を返す
+                if (str.indexOf("course")  != -1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        };
+
+        final File[] fileList = dir.listFiles(filter);
+        fileCount = fileList.length;
+        charCount = fileList[set.count].toString().length();
+        path = fileList[set.count].toString().substring(44,charCount);
+        logCount = path.replaceAll("[^0-9]","");
         //ファイルの有無
-       /* File file = new File("/data/data/"+getPackageName()+"/files/course1.dat");
-        boolean isExists = file.exists();*/
         if (!fileList.equals(null)) {
             setContentView(R.layout.map_select);
             try{
                 reader = new BufferedReader(
-                        new InputStreamReader(openFileInput("course1.dat")));
-              //  set.count = 1;
+                        new InputStreamReader(openFileInput(path)));
                 while((line = reader.readLine()) != null){
                     courseList.add(line);
                     listCount++;
@@ -80,7 +111,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
             }
             try{
                 logReader = new BufferedReader(
-                        new InputStreamReader(openFileInput("log1.dat")));
+                        new InputStreamReader(openFileInput("log" + logCount + ".dat")));
                 logLine = logReader.readLine();
                 str = logLine.split(" ",0);
                 lat = Double.parseDouble(str[0]);
@@ -103,6 +134,12 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
 
         Intent i = this.getIntent();
         set = (Setting)i.getSerializableExtra("Mode");
+
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
 
     }
 
@@ -177,5 +214,51 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         });
         dialog.show();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return mGestureDetector.onTouchEvent(event);
+    }
+
+    private final GestureDetector.SimpleOnGestureListener mOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+        // フリックイベント
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+
+            try {
+
+                // 移動距離・スピードを出力
+                float distance_x = Math.abs((event1.getX() - event2.getX()));
+                float velocity_x = Math.abs(velocityX);
+
+                if(!fileList().equals(null)) {
+                    // 開始位置から終了位置の移動距離が指定値より大きい
+                    // X軸の移動速度が指定値より大きい
+                    if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                        if(set.count > fileCount-1){
+                            set.count = 0;
+                            onNewIntent(getIntent());
+                        }else{
+                            set.count++;
+                            onNewIntent(getIntent());
+                        }
+
+                    }
+                    // 終了位置から開始位置の移動距離が指定値より大きい
+                    // X軸の移動速度が指定値より大きい
+                    else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+                    }
+                }
+
+            } catch (Exception e) {
+                // TODO
+            }
+
+            return false;
+        }
+    };
+
 
 }

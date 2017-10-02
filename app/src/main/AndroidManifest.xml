@@ -32,7 +32,8 @@
         <activity android:name=".ModeSelect">
 
         </activity>
-        <activity android:name=".SetCourse">
+        <activity android:name=".SetCourse"
+            android:launchMode="singleTop">
 
         </activity>
         <activity android:name=".MethodSelect">
@@ -53,7 +54,13 @@
         <activity android:name=".RunRecorder">
 
         </activity>
-        <activity android:name=".EditCourse">
+        <activity android:name=".Record">
+
+        </activity>
+        <activity android:name=".CourseEdit">
+
+        </activity>
+        <activity android:name=".MakeNew">
 
         </activity>
         <meta-data

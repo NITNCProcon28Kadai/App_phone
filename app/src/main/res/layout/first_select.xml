@@ -7,11 +7,12 @@
 
     <ImageButton
         android:id="@+id/runBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="395dp"
         android:layout_height="418dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:onClick="runMenu_onClick"
-        android:scaleType="fitStart"
+        android:scaleType="centerInside"
         android:src="@drawable/menu_run" />
 
     <LinearLayout
@@ -23,18 +24,20 @@
             android:id="@+id/courceEditBtn"
             android:layout_width="182dp"
             android:layout_height="134dp"
+            android:adjustViewBounds="true"
             android:background="@null"
+            android:onClick="editMenu_onClick"
             android:scaleType="fitEnd"
-            android:src="@drawable/menu_course_edit"
-            android:onClick="editMenu_onClick"/>
+            android:src="@drawable/menu_course_edit" />
 
         <ImageButton
             android:id="@+id/lookRecordBtn"
             android:layout_width="176dp"
             android:layout_height="136dp"
+            android:adjustViewBounds="true"
             android:background="@null"
+            android:onClick="recordMenu_onClick"
             android:scaleType="fitEnd"
-            android:src="@drawable/menu_look_record"
-            android:onClick="recordMenu_onClick"/>
+            android:src="@drawable/menu_look_record" />
     </LinearLayout>
 </LinearLayout>

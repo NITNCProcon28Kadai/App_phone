@@ -26,6 +26,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by kaito on 2017/09/09.
@@ -91,6 +93,8 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
         client.disconnect();
         BufferedWriter writer = null;
         BufferedWriter allDist = null;
+        BufferedWriter aveDist = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
 
         //今まで走った距離をまとめる
         try{
@@ -106,6 +110,25 @@ public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback
             try{
                 if(allDist != null){
                     allDist.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        //日付の情報を保存
+        try{
+            aveDist = new BufferedWriter(
+                    new OutputStreamWriter(
+                            openFileOutput("dateLog.dat",Context.MODE_APPEND)));
+            aveDist.write(sdf.format(new Date()));
+            aveDist.newLine();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(aveDist != null){
+                    aveDist.close();
                 }
             }catch (IOException e){
                 e.printStackTrace();

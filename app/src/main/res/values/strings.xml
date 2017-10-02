@@ -3,4 +3,5 @@
     <string name="course_name">TestCourse</string>
     <string name="course_make">コースを作成する</string>
     <string name="total_distance">合計距離</string>
+    <string name="ave_distance">一日あたりの距離</string>
 </resources>

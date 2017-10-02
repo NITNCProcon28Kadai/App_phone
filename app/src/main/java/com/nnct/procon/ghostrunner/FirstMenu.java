@@ -22,13 +22,13 @@ public class FirstMenu extends Activity{
     }
 
     void editMenu_onClick(View v){
-        Intent editMenu = new Intent(this,com.nnct.procon.ghostrunner.EditCourse.class);
+        Intent editMenu = new Intent(this,com.nnct.procon.ghostrunner.CourseEdit.class);
         startActivity(editMenu);
     }
-/*
-    void lookRecord_onClick(View v){
-        Intent lookRecord = new Intent(this,com.nnct.procon.ghostrunner.LookRecord.class);
+
+    void recordMenu_onClick(View v){
+        Intent lookRecord = new Intent(this,com.nnct.procon.ghostrunner.Record.class);
         startActivity(lookRecord);
     }
-    */
+
 }
