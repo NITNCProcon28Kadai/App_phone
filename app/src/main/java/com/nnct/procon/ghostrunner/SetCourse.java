@@ -82,7 +82,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         dir = new File(path);
         fileList = dir.listFiles(filter);
         //ファイルの有無
-        if (fileList.equals(null)) {
+        if (fileList.length == 0) {
             setContentView(R.layout.map_unselect);
         }else{
             setContentView(R.layout.map_select);
