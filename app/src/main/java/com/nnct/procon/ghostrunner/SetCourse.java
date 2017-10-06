@@ -42,12 +42,13 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     String line,logLine,logCount;
     Setting set;
     File dir;
-    int fileCount,listCount=0;
+    int fileCount,listCount=0;//ファイルの行数カウント
     ArrayList<String> courseList;
     BufferedReader reader = null,logReader = null;
     double lat,lng;
     String[] str;
     int charCount;
+    File[] fileList;
     // タッチイベントを処理するためのインタフェース
     private GestureDetector mGestureDetector;
     // X軸最低スワイプ距離
@@ -56,12 +57,12 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     // X軸最低スワイプスピード
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-    private String path;
+    private String path,fileName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dir = new File(path);
-        courseList = new ArrayList<>();
+        set = new Setting();
+        courseList = new ArrayList<String>();
         set.count = 0;
         //フィルタを作成する
         FilenameFilter filter = new FilenameFilter() {
@@ -77,59 +78,14 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
                 }
             }
         };
-
-        final File[] fileList = dir.listFiles(filter);
-        fileCount = fileList.length;
-        charCount = fileList[set.count].toString().length();
-        path = fileList[set.count].toString().substring(44,charCount);
-        logCount = path.replaceAll("[^0-9]","");
+        path = "data/data/" + getPackageName() +"/files";
+        dir = new File(path);
+        fileList = dir.listFiles(filter);
         //ファイルの有無
-        if (!fileList.equals(null)) {
-            setContentView(R.layout.map_select);
-            try{
-                reader = new BufferedReader(
-                        new InputStreamReader(openFileInput(path)));
-                while((line = reader.readLine()) != null){
-                    courseList.add(line);
-                    listCount++;
-                }
-                TextView textView = (TextView)findViewById(R.id.textView);
-                textView.setText(courseList.get(0));
-                set.time = Long.parseLong(courseList.get(listCount - 2));
-                set.dist = Double.parseDouble(courseList.get(listCount - 1));
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            finally {
-                try{
-                    if(reader != null){
-                        reader.close();
-                    }
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-            try{
-                logReader = new BufferedReader(
-                        new InputStreamReader(openFileInput("log" + logCount + ".dat")));
-                logLine = logReader.readLine();
-                str = logLine.split(" ",0);
-                lat = Double.parseDouble(str[0]);
-                lng = Double.parseDouble(str[1]);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            finally {
-                try{
-                    if(logReader != null){
-                        logReader.close();
-                    }
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        }else{
+        if (fileList.equals(null)) {
             setContentView(R.layout.map_unselect);
+        }else{
+            setContentView(R.layout.map_select);
         }
 
         Intent i = this.getIntent();
@@ -140,7 +96,54 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     @Override
     protected void onStart(){
         super.onStart();
-
+        if (fileList.length != 0) {
+            fileCount = fileList.length;//存在するファイルの数
+            charCount = fileList[set.count].toString().length();
+            fileName = fileList[set.count].toString().substring(44,charCount);//パスを除いたファイル名
+            logCount = path.replaceAll("[^0-9]","");//ログファイルに対応する数字
+            if (!(fileList.equals(null))) {
+                try {
+                    reader = new BufferedReader(
+                            new InputStreamReader(openFileInput(fileName)));
+                    while ((line = reader.readLine()) != null) {
+                        courseList.add(line);
+                        listCount++;
+                    }
+                    TextView textView = (TextView) findViewById(R.id.textView);
+                    textView.setText(courseList.get(0));
+                    set.time = Long.parseLong(courseList.get(listCount - 2));
+                    set.dist = Double.parseDouble(courseList.get(listCount - 1));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (reader != null) {
+                            reader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    logReader = new BufferedReader(
+                            new InputStreamReader(openFileInput("log" + logCount + ".dat")));
+                    logLine = logReader.readLine();
+                    str = logLine.split(" ", 0);
+                    lat = Double.parseDouble(str[0]);
+                    lng = Double.parseDouble(str[1]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (logReader != null) {
+                            logReader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -152,15 +155,15 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowPos,5));
     }
 
-    void CourseEnter_onClick(View view){
-        if(set.courseFile == null){
+    void courseEnter_onClick(View view){
+        /*if(set.courseFile == null){
             ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
             imgBtn.setEnabled(false);
             imgBtn.setColorFilter(0xaa808080);
         }else{
             ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
             imgBtn.setEnabled(true);
-        }
+        }*/
         Intent intent;
         if(set.mode.equals("vs")){
             intent = new Intent(this,com.nnct.procon.ghostrunner.VsStart.class);
@@ -232,7 +235,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
                 float distance_x = Math.abs((event1.getX() - event2.getX()));
                 float velocity_x = Math.abs(velocityX);
 
-                if(!fileList().equals(null)) {
+                if(fileCount > 1) {
                     // 開始位置から終了位置の移動距離が指定値より大きい
                     // X軸の移動速度が指定値より大きい
                     if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -248,12 +251,18 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
                     // 終了位置から開始位置の移動距離が指定値より大きい
                     // X軸の移動速度が指定値より大きい
                     else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-
+                        if(set.count < 0){
+                            set.count = fileCount - 1;
+                            onNewIntent(getIntent());
+                        }else{
+                            set.count--;
+                            onNewIntent(getIntent());
+                        }
                     }
                 }
 
             } catch (Exception e) {
-                // TODO
+                e.printStackTrace();
             }
 
             return false;

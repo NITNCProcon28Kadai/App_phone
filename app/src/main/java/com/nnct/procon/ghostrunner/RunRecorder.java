@@ -1,12 +1,14 @@
 package com.nnct.procon.ghostrunner;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -33,7 +35,7 @@ import java.util.Date;
  * Created by kaito on 2017/09/09.
  */
 
-public class RunRecorder extends AppCompatActivity implements OnMapReadyCallback,
+public class RunRecorder extends FragmentActivity implements OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,LocationListener{
     private GoogleApiClient client;
     private LocationRequest request;

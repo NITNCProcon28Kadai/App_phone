@@ -28,6 +28,7 @@ public class MakeNew extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_new);
+        set = new Setting();
 
         //フィルタを作成する
         FilenameFilter filter = new FilenameFilter() {
@@ -43,7 +44,7 @@ public class MakeNew extends Activity {
                 }
             }
         };
-        File dir = new File("/data/data/" + getPackageName() + "/files");
+        File dir = new File("data/data/" + getPackageName() + "/files");
         File[] files = dir.listFiles(filter);
         if (files.equals(null)){
             count = 1;
