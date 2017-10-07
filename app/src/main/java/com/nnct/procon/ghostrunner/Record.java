@@ -1,8 +1,11 @@
 package com.nnct.procon.ghostrunner;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -74,6 +77,17 @@ public class Record extends Activity {
     void medal_onClick(){
         Intent intent = new Intent(this,com.nnct.procon.ghostrunner.MedalList.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent(this,com.nnct.procon.ghostrunner.FirstMenu.class);
+            startActivity(intent);
+            Record.this.finish();
+            return true;
+        }
+        return false;
     }
 
 }

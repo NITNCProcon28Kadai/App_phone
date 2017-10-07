@@ -2,7 +2,9 @@ package com.nnct.procon.ghostrunner;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -238,7 +241,32 @@ public class RunRecorder extends FragmentActivity implements OnMapReadyCallback,
         totalTime = (end - start)*1000 /60;
         intent.putExtra("file",set);
         startActivity(intent);
+        RunRecorder.this.finish();
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(RunRecorder.this);
+            dialog.setTitle("終了しますか?");
+            dialog.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteFile(set.courseFile + ".dat");
+                    deleteFile("log" + set.count + ".dat");
+                    finish();
+                }});
+            dialog.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+
+            return true;
+        }
+        return false;
     }
 
 }

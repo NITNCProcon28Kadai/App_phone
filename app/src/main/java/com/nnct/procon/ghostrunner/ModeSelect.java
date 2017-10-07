@@ -3,6 +3,7 @@ package com.nnct.procon.ghostrunner;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 
 /**
@@ -22,6 +23,7 @@ public class ModeSelect extends Activity {
         set.mode = "vs";
         vs.putExtra("Mode",set);
         startActivity(vs);
+        ModeSelect.this.finish();
     }
 
     void paceMaker_onClick(View view){
@@ -29,5 +31,6 @@ public class ModeSelect extends Activity {
         set.mode = "pace";
         pace.putExtra("Mode",set);
         startActivity(pace);
+        ModeSelect.this.finish();
     }
 }

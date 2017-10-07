@@ -3,6 +3,7 @@ package com.nnct.procon.ghostrunner;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 /**
@@ -24,5 +25,16 @@ public class CourseEdit extends Activity {
     void delete_onClick(View v){
         Intent deleteIntent = new Intent(this,com.nnct.procon.ghostrunner.DeleteCourse.class);
         startActivity(deleteIntent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent(this,com.nnct.procon.ghostrunner.FirstMenu.class);
+            startActivity(intent);
+            CourseEdit.this.finish();
+            return true;
+        }
+        return false;
     }
 }

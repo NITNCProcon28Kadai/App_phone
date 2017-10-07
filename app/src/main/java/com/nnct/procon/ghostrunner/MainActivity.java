@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
         if(e.getAction() == MotionEvent.ACTION_UP){
             Intent intent = new Intent(this,com.nnct.procon.ghostrunner.FirstMenu.class);
             startActivity(intent);
+            MainActivity.this.finish();
         }
         return true;
     }

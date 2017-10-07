@@ -46,14 +46,14 @@ public class MakeNew extends Activity {
         };
         File dir = new File("data/data/" + getPackageName() + "/files");
         File[] files = dir.listFiles(filter);
-        if (files.equals(null)){
+        if (files.length == 0){
             count = 1;
         }else {
             count = files.length;
         }
     }
 
-    void CourseEnter_onClick(View view){
+    void courseEnter_onClick(View view){
         if(set.courseFile == null){
             ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
             imgBtn.setEnabled(false);

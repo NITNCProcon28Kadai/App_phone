@@ -79,7 +79,7 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onStart(){
         super.onStart();
-        if (!(fileList.equals(null))) {
+        if (fileList.length > 0) {
             fileCount = fileList.length;//存在するファイルの数
             charCount = fileList[set.count].toString().length();
             fileName = fileList[set.count].toString().substring(44,charCount);//パスを除いたファイル名
@@ -128,6 +128,9 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
         }else{
             TextView textView = (TextView)findViewById(R.id.deleteText);
             textView.setText("コースが存在しません");
+            findViewById(R.id.courseDelete).setVisibility(View.INVISIBLE);
+            findViewById(R.id.courseDelete).setEnabled(false);
+            findViewById(R.id.map).setVisibility(View.INVISIBLE);
         }
     }
 
@@ -147,10 +150,10 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowPos,5));
     }
 
-    @Override
+   /* @Override
     public boolean onTouchEvent(MotionEvent event) {
         return mGestureDetector.onTouchEvent(event);
-    }
+    }*/
 
     private final GestureDetector.SimpleOnGestureListener mOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
 

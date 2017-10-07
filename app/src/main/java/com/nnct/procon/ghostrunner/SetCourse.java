@@ -172,6 +172,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         }
         intent.putExtra("Course",set);
         startActivity(intent);
+        SetCourse.this.finish();
     }
 
     void courseMake_onClick(View view){
@@ -181,9 +182,9 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
         dialog.setView(editView);
         Log.d("Touch_confirm","タッチを検出しました.");
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(editView != null){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(editView != null){
                     BufferedWriter writer = null;
                     try{
                         writer = new BufferedWriter(new OutputStreamWriter(

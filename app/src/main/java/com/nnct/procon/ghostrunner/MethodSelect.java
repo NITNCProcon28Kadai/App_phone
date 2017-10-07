@@ -25,6 +25,7 @@ public class MethodSelect extends Activity {
         Intent interval = new Intent(this,com.nnct.procon.ghostrunner.SpeedSelect.class);
         interval.putExtra("Method",set);
         startActivity(interval);
+        MethodSelect.this.finish();
     }
 
     void pace_onClick(View view){
@@ -32,5 +33,6 @@ public class MethodSelect extends Activity {
         Intent pace = new Intent(this,com.nnct.procon.ghostrunner.SpeedSelect.class);
         pace.putExtra("Method",set);
         startActivity(pace);
+        MethodSelect.this.finish();
     }
 }
