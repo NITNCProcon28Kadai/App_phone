@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/menuback"
     android:weightSum="1">
 
     <ImageButton
         android:id="@+id/runBtn"
-        android:layout_width="395dp"
-        android:layout_height="418dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:adjustViewBounds="true"
         android:background="@null"
         android:onClick="runMenu_onClick"
         android:scaleType="centerInside"
-        android:src="@drawable/menu_run" />
+        android:src="@drawable/menu_run"
+        android:layout_marginBottom="18dp"
+        android:layout_above="@+id/courceEditBtn"
+        android:layout_alignLeft="@+id/courceEditBtn"
+        android:layout_alignStart="@+id/courceEditBtn" />
 
-    <LinearLayout
-        android:layout_width="355dp"
-        android:layout_height="158dp"
-        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/courceEditBtn"
-            android:layout_width="182dp"
-            android:layout_height="134dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:onClick="editMenu_onClick"
-            android:scaleType="fitEnd"
-            android:src="@drawable/menu_course_edit" />
 
-        <ImageButton
-            android:id="@+id/lookRecordBtn"
-            android:layout_width="176dp"
-            android:layout_height="136dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:onClick="recordMenu_onClick"
-            android:scaleType="fitEnd"
-            android:src="@drawable/menu_look_record" />
-    </LinearLayout>
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/courceEditBtn"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:onClick="editMenu_onClick"
+        android:scaleType="fitEnd"
+        android:src="@drawable/menu_course_edit"
+        android:layout_alignTop="@+id/lookRecordBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp" />
+
+    <ImageButton
+        android:id="@+id/lookRecordBtn"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:onClick="recordMenu_onClick"
+        android:scaleType="fitEnd"
+        android:src="@drawable/menu_look_record"
+        android:layout_marginBottom="11dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

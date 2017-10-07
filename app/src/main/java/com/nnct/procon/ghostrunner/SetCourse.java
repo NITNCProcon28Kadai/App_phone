@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -178,6 +179,7 @@ public class SetCourse extends FragmentActivity implements OnMapReadyCallback {
     void courseMake_onClick(View view){
         final EditText editView = new EditText(SetCourse.this);
         AlertDialog.Builder dialog = new AlertDialog.Builder(SetCourse.this);
+        editView.setInputType(InputType.TYPE_CLASS_TEXT);
         dialog.setTitle("コース名を入力してください");
         dialog.setView(editView);
         Log.d("Touch_confirm","タッチを検出しました.");

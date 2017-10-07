@@ -79,6 +79,7 @@ public class RunRecorder extends FragmentActivity implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap){
         mMap = googleMap;
         LatLng current = new LatLng(36.678106,138.232719);
+
     }
 
     @Override
@@ -146,8 +147,7 @@ public class RunRecorder extends FragmentActivity implements OnMapReadyCallback,
                             openFileOutput(set.courseFile + ".dat", Context.MODE_APPEND)));
             writer.write(Long.toString(totalTime));//時間
             writer.newLine();
-            writer.write(Double.toString(totalDist));//総距離
-            writer.newLine();
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -239,9 +239,11 @@ public class RunRecorder extends FragmentActivity implements OnMapReadyCallback,
         Intent intent = new Intent(this,com.nnct.procon.ghostrunner.ShowRecord.class);
         end = System.currentTimeMillis();
         totalTime = (end - start)*1000 /60;
+        set.dist = totalDist;
+        set.time = totalTime;
         intent.putExtra("file",set);
         startActivity(intent);
-        RunRecorder.this.finish();
+        //RunRecorder.this.finish();
     }
 
     @Override

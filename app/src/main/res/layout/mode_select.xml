@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/modeback">
+
+
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="306dp"
         android:id="@+id/vsGhost"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:onClick="vsGhost_onClick"
+        android:scaleType="centerInside"
         android:src="@drawable/mode_vs"
-        android:scaleType="fitStart"/>
+        android:layout_marginRight="193dp"
+        android:layout_marginEnd="193dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:id="@+id/paceMaker"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:onClick="paceMaker_onClick"
-        android:scaleType="fitEnd"
-        android:src="@drawable/pace_keeper" />
+        android:scaleType="centerInside"
+        android:src="@drawable/pace_keeper"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+</RelativeLayout>

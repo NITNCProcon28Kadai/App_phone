@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 /**
@@ -26,19 +28,13 @@ public class SettingConfirm extends Activity {
         Intent i = this.getIntent();
         set = (Setting)i.getSerializableExtra("Speed");
 
-        RelativeLayout relative = new RelativeLayout(this);
 
         ImageButton modeBtn = (ImageButton)findViewById(R.id.mode);
         ImageButton methodBtn = (ImageButton)findViewById(R.id.method);
         ImageButton speedBtn = (ImageButton)findViewById(R.id.speed);
+        TextView txtView = (TextView)findViewById(R.id.courseName);
 
-        //レイアウトのコンバート
-        relative.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT));
-        relative.setBackgroundResource(R.drawable.background);
 
-        setContentView(relative);
 
         //設定に応じた画像の割り当て
         if(set.mode.equals("vs")){
@@ -65,14 +61,16 @@ public class SettingConfirm extends Activity {
                 break;
         }
 
-        //画像の適用
-        relative.addView(modeBtn);
-        relative.addView(methodBtn);
-        relative.addView(speedBtn);
-
+        txtView.setText(set.courseName);
 
     }
 
+    void lastEnter_onClick(View v){
+        Intent intent = new Intent(this,com.nnct.procon.ghostrunner.RunRecorder.class);
+        intent.putExtra("file",set);
+        startActivity(intent);
+        SettingConfirm.this.finish();
+    }
 
 
 

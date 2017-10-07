@@ -1,11 +1,9 @@
 package com.nnct.procon.ghostrunner;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
  * Created by kaito on 2017/10/01.
  */
 
-public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback {
+public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback,GestureDetector.OnGestureListener {
     private GoogleMap mMap;
     String line,logLine,logCount;
     Setting set;
@@ -73,12 +71,13 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
         dir = new File(path);
         fileList = dir.listFiles(filter);
         setContentView(R.layout.delete_course);
+        mGestureDetector = new GestureDetector(this,this);
     }
 
 
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onResume(){
+        super.onResume();
         if (fileList.length > 0) {
             fileCount = fileList.length;//存在するファイルの数
             charCount = fileList[set.count].toString().length();
@@ -140,6 +139,7 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
         deleteFile("log" + logCount + ".dat");
         Intent intent = new Intent(this,com.nnct.procon.ghostrunner.CourseEdit.class);
         startActivity(intent);
+        DeleteCourse.this.finish();
     }
     @Override
     public void onMapReady(GoogleMap gmap){
@@ -150,54 +150,127 @@ public class DeleteCourse extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowPos,5));
     }
 
-   /* @Override
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return mGestureDetector.onTouchEvent(event);
-    }*/
+        mGestureDetector.onTouchEvent(event);
+        return false;
+    }
 
-    private final GestureDetector.SimpleOnGestureListener mOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
+    @Override
+    public boolean onDown(MotionEvent e) {
+        Log.d("sample", "onDown()");
+        return false;
+    }
 
-        // フリックイベント
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+    @Override
+    public boolean onFling(MotionEvent event1, MotionEvent event2, float x, float y){
+        try {
 
-            try {
+            // 移動距離・スピードを出力
+            /*float distance_x = Math.abs((event1.getX() - event2.getX()));
+            float velocity_x = Math.abs(x);*/
 
-                // 移動距離・スピードを出力
-                float distance_x = Math.abs((event1.getX() - event2.getX()));
-                float velocity_x = Math.abs(velocityX);
-
-                if(fileCount > 1) {
-                    // 開始位置から終了位置の移動距離が指定値より大きい
-                    // X軸の移動速度が指定値より大きい
-                    if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                        if(set.count > fileCount-1){
-                            set.count = 0;
-                            onNewIntent(getIntent());
-                        }else{
-                            set.count++;
-                            onNewIntent(getIntent());
-                        }
-
+            if(fileCount > 1) {
+                // 開始位置から終了位置の移動距離が指定値より大きい
+                // X軸の移動速度が指定値より大きい
+                if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(x) > SWIPE_THRESHOLD_VELOCITY) {
+                    if(set.count > fileCount-1){
+                        set.count = 0;
+                        onNewIntent(getIntent());
+                    }else{
+                        set.count++;
+                        onNewIntent(getIntent());
                     }
-                    // 終了位置から開始位置の移動距離が指定値より大きい
-                    // X軸の移動速度が指定値より大きい
-                    else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                        if(set.count < 0){
-                            set.count = fileCount - 1;
-                            onNewIntent(getIntent());
-                        }else{
-                            set.count--;
-                            onNewIntent(getIntent());
-                        }
+
+                }
+                // 終了位置から開始位置の移動距離が指定値より大きい
+                // X軸の移動速度が指定値より大きい
+                else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(x) > SWIPE_THRESHOLD_VELOCITY) {
+                    if(set.count < 0){
+                        set.count = fileCount - 1;
+                        onNewIntent(getIntent());
+                    }else{
+                        set.count--;
+                        onNewIntent(getIntent());
                     }
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
-            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    };
+
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Log.d("sample", "onLongPress()");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        Log.d("sample", "onSingleTapUp()");
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent event1, MotionEvent event2, float x, float y) {
+        Log.d("sample", "onScroll()");
+        try {
+
+            // 移動距離・スピードを出力
+            /*float distance_x = Math.abs((event1.getX() - event2.getX()));
+            float velocity_x = Math.abs(x);*/
+
+            if(fileCount > 1) {
+                // 開始位置から終了位置の移動距離が指定値より大きい
+                // X軸の移動速度が指定値より大きい
+                if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(x) > SWIPE_THRESHOLD_VELOCITY) {
+                    if(set.count > fileCount-1){
+                        set.count = 0;
+                        Intent intent = this.getIntent();
+                        intent.putExtra("delete",set);
+                        onNewIntent(getIntent());
+                    }else{
+                        set.count++;
+                        Intent intent = this.getIntent();
+                        intent.putExtra("delete",set);
+                        onNewIntent(getIntent());
+                    }
+
+                }
+                // 終了位置から開始位置の移動距離が指定値より大きい
+                // X軸の移動速度が指定値より大きい
+                else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(x) > SWIPE_THRESHOLD_VELOCITY) {
+                    if(set.count < 0){
+                        set.count = fileCount - 1;
+                        Intent intent = this.getIntent();
+                        intent.putExtra("delete",set);
+                        onNewIntent(getIntent());
+                    }else{
+                        set.count--;
+                        Intent intent = this.getIntent();
+                        intent.putExtra("delete",set);
+                        onNewIntent(getIntent());
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        Log.d("sample", "onShowPress()");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        set = (Setting)intent.getSerializableExtra("delete");   // セットした値が取り出せる
+    }
+
 }

@@ -48,6 +48,7 @@ public class VsStart extends Activity {
             dialog.setPositiveButton("はい", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    deleteFile(set.courseFile + ".dat");
                     finish();
                 }});
             dialog.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {

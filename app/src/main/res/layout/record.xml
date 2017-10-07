@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/background">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/total_distance"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_marginTop="70dp"
-        android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    android:background="@drawable/recordback">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/distView"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/aveDist"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ave_distance"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_below="@+id/distView"
-        android:layout_alignRight="@+id/distView"
-        android:layout_alignEnd="@+id/distView"
-        android:id="@+id/textView5" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="63dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/aveDist"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
-        android:layout_below="@+id/textView5"
+        android:layout_above="@+id/imageButton2"
         android:layout_alignRight="@+id/distView"
-        android:layout_alignEnd="@+id/distView" />
+        android:layout_alignEnd="@+id/distView"
+        android:layout_marginBottom="146dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winpercent"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        android:layout_above="@+id/imageButton2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp" />
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,6 +45,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginBottom="13dp"
+        android:id="@+id/imageButton2" />
+
 
 </RelativeLayout>

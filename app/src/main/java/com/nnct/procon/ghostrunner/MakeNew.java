@@ -54,22 +54,22 @@ public class MakeNew extends Activity {
     }
 
     void courseEnter_onClick(View view){
-        if(set.courseFile == null){
+        if(set.courseName == null){
             ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
             imgBtn.setEnabled(false);
             imgBtn.setColorFilter(0xaa808080);
-        }else{
-            ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
-            imgBtn.setEnabled(true);
-        }
-        Intent intent;
-        if(set.mode.equals("vs")){
-            intent = new Intent(this,com.nnct.procon.ghostrunner.VsStart.class);
         }else {
-            intent = new Intent(this, com.nnct.procon.ghostrunner.MethodSelect.class);
+
+            Intent intent;
+            if (set.mode.equals("vs")) {
+                intent = new Intent(this, com.nnct.procon.ghostrunner.VsStart.class);
+            } else {
+                intent = new Intent(this, com.nnct.procon.ghostrunner.MethodSelect.class);
+            }
+            intent.putExtra("Course", set);
+            startActivity(intent);
+            MakeNew.this.finish();
         }
-        intent.putExtra("Course",set);
-        startActivity(intent);
     }
 
     void courseMake_onClick(View view){
@@ -92,6 +92,8 @@ public class MakeNew extends Activity {
                         set.courseFile = "course" + count+1 ;
                         set.count = count;
                         set.mode = "vs";
+                        ImageButton imgBtn = (ImageButton)findViewById(R.id.goNext);
+                        imgBtn.setEnabled(true);
                     }catch (IOException e){
                         e.printStackTrace();
                     }finally {

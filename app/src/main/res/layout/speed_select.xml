@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/speedback">
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="189dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:id="@+id/regularBtn"
         android:background="@null"
         android:src="@drawable/normal"
         android:scaleType="centerInside"
-        android:onClick="Regular_onClick"/>
+        android:adjustViewBounds="true"
+        android:onClick="Regular_onClick"
+        android:layout_above="@+id/quickBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="27dp" />
 
     <ImageButton
         android:id="@+id/quickBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="188dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:background="@null"
         android:scaleType="centerInside"
+        android:adjustViewBounds="true"
         android:src="@drawable/fast"
-        android:onClick="Fast_onClick"/>
+        android:onClick="Fast_onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/slowBtn"
+        android:layout_toStartOf="@+id/slowBtn"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:id="@+id/slowBtn"
         android:background="@null"
         android:src="@drawable/slow"
         android:scaleType="centerInside"
-        android:onClick="Slow_onClick"/>
-</LinearLayout>
+        android:adjustViewBounds="true"
+        android:onClick="Slow_onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

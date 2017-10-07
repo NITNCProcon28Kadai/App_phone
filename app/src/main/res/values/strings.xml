@@ -7,4 +7,5 @@
     <string name="distance">距離</string>
     <string name="ave_speed">平均速度</string>
     <string name="balance">ゴーストとの差</string>
+    <string name="winper">ゴーストとの勝率</string>
 </resources>

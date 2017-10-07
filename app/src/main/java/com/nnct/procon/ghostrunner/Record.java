@@ -6,17 +6,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by kaito on 2017/09/30.
  */
 
 public class Record extends Activity {
+    BufferedReader reader;
+    String line;
+    int count = 0,win = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +30,7 @@ public class Record extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
-        TextView allDist = (TextView)findViewById(R.id.distView),aveDist = (TextView)findViewById(R.id.aveDist);
+        TextView allDist = (TextView)findViewById(R.id.distView),aveDist = (TextView)findViewById(R.id.aveDist),winPer = (TextView)findViewById(R.id.winpercent);
         String line,date = null;
         BufferedReader allReader = null,aveReader = null;
         double dist = 0,count = 0;
@@ -48,7 +53,7 @@ public class Record extends Activity {
                 e.printStackTrace();
             }
         }
-        allDist.setText(Double.toString(dist) + "km");
+        allDist.setText(String.format("%.3fkm",dist));
         //平均距離
         try{
             aveReader = new BufferedReader(
@@ -71,7 +76,20 @@ public class Record extends Activity {
                 e.printStackTrace();
             }
         }
-        aveDist.setText(Double.toString(dist/count) + "km");
+        aveDist.setText(String.format("%.3fkm",dist / count));
+        //勝率
+        try{
+            reader = new BufferedReader(new InputStreamReader(openFileInput("result.dat")));
+            while((line = reader.readLine()) != null){
+                if(line == "win"){
+                    win++;
+                }
+                count++;
+            }
+            winPer.setText(String.format("%d%",win/count));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     void medal_onClick(){
@@ -88,6 +106,11 @@ public class Record extends Activity {
             return true;
         }
         return false;
+    }
+
+    void medal_onClick(View v){
+        Intent intent = new Intent(this,com.nnct.procon.ghostrunner.MedalList.class);
+        startActivity(intent);
     }
 
 }
